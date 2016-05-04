@@ -1,0 +1,80 @@
+{
+  "name": "babel-plugin-transform-bluebird",
+  "version": "0.0.0",
+  "description": "replace `Promise` with bluebird plugin",
+  "main": "lib",
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "start": "abby compile, watch:*",
+    "watch:raw": "abby mocha --log --watch",
+    "watch:src": "babel src --out-dir lib --watch",
+    "watch:test": "babel test --out-dir spec --watch",
+    "compile": "babel -V && babel src --out-dir lib && babel test --out-dir spec",
+    "test": "abby compile, mocha",
+    "mocha": "mocha 'spec/**/*.js'",
+    "cover": "abby cover:* --parse serial",
+    "cover:test": "nyc --reporter=lcov --reporter=text abby mocha",
+    "cover:report": "npm-if TRAVIS \"codeclimate-test-reporter < coverage/lcov.info\"",
+    "lint": "eslint src test",
+    "build": "abby \"babel -V && babel src --out-dir lib --source-maps\" --env"
+  },
+  "nyc": {
+    "exclude": [
+      "spec"
+    ]
+  },
+  "abigail": {
+    "plugins": {
+      "log": false,
+      "parse": {
+        "raw": true
+      },
+      "watch": {
+        "enable": false,
+        "value": [
+          "lib/**/*.js",
+          "spec/**/*.js"
+        ]
+      }
+    }
+  },
+  "devDependencies": {
+    "abigail": "^1.6.1",
+    "babel-cli": "^6.6.5",
+    "babel-core": "^6.7.6",
+    "babel-eslint": "^6.0.2",
+    "babel-plugin-add-module-exports": "^0.1.2",
+    "babel-plugin-espower": "^2.1.2",
+    "babel-plugin-transform-object-assign": "^6.5.0",
+    "babel-preset-es2015": "^6.6.0",
+    "babel-preset-stage-1": "^6.5.0",
+    "babel-register": "^6.7.2",
+    "bluebird": "^3.3.5",
+    "chokidar": "^1.4.3",
+    "codeclimate-test-reporter": "^0.3.1",
+    "eslint": "^2.6.0",
+    "eslint-config-airbnb": "^7.0.0",
+    "mocha": "^2.4.5",
+    "npm-statement": "^0.0.0",
+    "nyc": "^6.1.1",
+    "power-assert": "^1.3.1",
+    "q": "^1.4.1"
+  },
+  "keywords": [
+    "babel-plugin",
+    "Promise",
+    "bluebird"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/59naga/babel-plugin-transform-bluebird.git"
+  },
+  "author": "59naga <i59naga@icloud.com> (http://berabou.me/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/59naga/babel-plugin-transform-bluebird/issues"
+  },
+  "homepage": "https://github.com/59naga/babel-plugin-transform-bluebird#readme"
+}

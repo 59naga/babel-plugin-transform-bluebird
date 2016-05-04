@@ -1,0 +1,45 @@
+notifications:
+  email: false
+
+# Quick boot options
+sudo: false
+cache:
+  directories:
+    - node_modules
+
+# Ignore version tags
+branches:
+  except:
+    - /^v[0-9]/
+
+env:
+  global:
+    # CODECLIMATE_REPO_TOKEN
+    - secure: SACFdmNF5LxAcxdqYlQJG5Mk18WsFGapZ7XiPV5aTeYznmdjgVDYc8TgXteO7wkx0fNvxBt8OhuuywawADImotm2dq/cfyzoGbtx0F3/x0XU7mAPVSJuCU3Ta1Ri6Ep8ubT2mv/XHV7nVtvKM2ANTEpW48v8zDRGgZJTBpjdLpodrELFd3SPLJYLDtzqbssL1dErB/hwllVhrLPRznvgxqeOFK9wyouMVWghTDvKp6RW3PHiiTS4sPU/xEmfHxcKcUTqC+TNdfjOet/zTcVI3GQ5HKO4TR2ogElTvFcT/b3W5S+3N9MkjLc98PZBplPoT1+YbYOWmFxWe6nuHxq6wTrsrU9fmHn4Jnud638nLiQkvXNj3kdQK66UqWCB9Cs089UTYX8q4M4NzgemwM/BFOD0UMkL53fEE8TAJ3xSMfb8lq5J88i2aPg4fnB+rmowzEKrBYakYd2Ze8GTmdFtrKq5XDWT//Xq/hfpCZ8/wgNH7nIjieVPEI7Saw119kbXVCTi6HfXnPPHbveMI9sIo8gCFyS2o7RC2e8+B5YZ84XcvWZuX7+isY3uAdTM29gGiBfHj0voHEe52FmLohZEVpTe2rWSYRj03RdQU+NvP1zFGh+TTZbS742jzcBlnd6V5N/1Iu6NyWl8hq7N/nCkWX3rfMiEDsYkAAry/oICHCg=
+
+# Language options
+language: node_js
+before_install:
+  - if [[ `npm -v` != 3* ]]; then npm i -g npm@3; fi
+node_js:
+  - "0"
+  - 4
+  - 5
+before_script:
+  - npm prune
+script:
+  - npm run compile
+  - npm run cover
+  - npm run lint
+
+# Npm publish options
+before_deploy:
+  - npm run build
+deploy:
+  skip_cleanup: true # keep the devDependencies
+  provider: npm
+  email: i59naga@icloud.com
+  api_key:
+    secure: BJCwSqb2aq29EvcdwagN49i9GF8kUYmbvNslrldYGcZL3jXytbJH3wMMrFjiK2HkTqkMhabDDoOxoOLr+4XfupJMYszzVbQHSmamX5f8i5yhKrXj2v6h5UrRJCMStaBmTOJk8zQxcgjGtardIN1yPNmjHsBHXt34YIrmUrOIlQJMV5+I+SFnfnGSepF4y6D0yNkhK+wOTZ76XrW0N3NIx5BxuUxaFgy/6dpEh9iq5grixNCImEeCjuuc6llOfYW3ck6kl02QSmAzbwY5BmaJFNx13CFLLSoWD/cunyQeajxJegh3wFgTC0Akfr2jvhYSVbm69H4qlWuKp/HpdVSSoQ3evyXmlVwxBBpFfVGQW15hLrEL/tIVvH+vFHvwwO4JP43z+5+96K2PMsxJsjIRkFkeDgeKhfC0zY8oVtG5gvtvjxipxA9gUDWS6EWYNMq114KRjpU/AiARGGc7Wf55pQbJS48+2dvvmu9LiYDk1m/U8LGa7KGkzdcVWoE8B0z0xdzhYq/SrTWD43MPRHppC+z4rt104igsXHvb2IbWhAuG9TuDNbWZNJS5sAxs/T7hszEpK1D5SAyVnA04TfslwvERBHccAxXZb87mQoAyE/X41202TvCiu7b1cw/BL4dZRG0jP+nhNWdV5Eg6+Cnvs3uAfwAe8KTM/cCaeQZ6+xY=
+  on:
+    node: 4
