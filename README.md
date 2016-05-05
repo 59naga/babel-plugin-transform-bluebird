@@ -19,7 +19,7 @@ babel-plugin-transform-bluebird
   </a>
 </p>
 
-Replace `Promise` with an [bluebird](https://github.com/petkaantonov/bluebird#readme) plugin.
+replace [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) with  [bluebird](https://github.com/petkaantonov/bluebird#readme) plugin.
 
 Installation
 ---
