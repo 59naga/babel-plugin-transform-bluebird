@@ -33,14 +33,22 @@ Example
 **In**
 
 ```js
-Promise.resolve()
+Promise.resolve().then(() => new Promise((resolve) => resolve()))
 ```
 
 **Out**
 
 ```js
-var Promise = require("bluebird");
-Promise.resolve();
+"use strict";
+var _bluebird = require("bluebird");
+var _bluebird2 = _interopRequireDefault(_bluebird);
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+(0, _bluebird.resolve)().then(function () {
+      return new _bluebird2.default(function (resolve) {
+            return resolve();
+      });
+});
 ```
 
 ## Usage
