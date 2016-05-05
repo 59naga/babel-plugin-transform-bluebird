@@ -5,6 +5,13 @@ const Q = q.resolve().constructor;
 
 export default [
   {
+    description: 'should be injected if called built-in `Promise.resolve` in iife',
+    code: `
+      (() => Promise.resolve())()
+    `,
+    expected: Bluebird,
+  },
+  {
     description: 'should be injected if called built-in `Promise.resolve`',
     code: 'Promise.resolve()',
     expected: Bluebird,
@@ -32,18 +39,44 @@ export default [
     expected: Bluebird,
   },
   {
-    description: 'should be injected if assigned built-in `Promise`',
+    description: 'should be injected if assigned built-in `Promise.resolve` in iife',
     code: `
-      var hoge = new Promise((resolve)=> resolve())
-      hoge
+      (() => {
+        var foo = Promise.resolve()
+        return foo
+      })()
     `,
     expected: Bluebird,
   },
   {
     description: 'should be injected if assigned built-in `Promise.resolve`',
     code: `
-      var hoge = Promise.resolve()
-      hoge
+      var foo = Promise.resolve()
+      foo
+    `,
+    expected: Bluebird,
+  },
+  {
+    description: 'should be injected if assigned built-in `Promise.race`',
+    code: `
+      var foo = Promise.race([])
+      foo
+    `,
+    expected: Bluebird,
+  },
+  {
+    description: 'should be injected if assigned built-in `Promise.all`',
+    code: `
+      var foo = Promise.all([])
+      foo
+    `,
+    expected: Bluebird,
+  },
+  {
+    description: 'should be injected if assigned built-in `Promise`',
+    code: `
+      var foo = new Promise((resolve)=> resolve())
+      foo
     `,
     expected: Bluebird,
   },

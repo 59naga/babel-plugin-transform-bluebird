@@ -14,3 +14,4 @@ rules:
 
   max-len: 1
   arrow-body-style: 1
+  no-param-reassign: 0
