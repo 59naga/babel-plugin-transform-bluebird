@@ -10,8 +10,8 @@
   "env": {
     "development": {
       "sourceMaps": "inline",
-      "plugins": [
-        "espower"
+      "presets": [
+        "power-assert"
       ]
     }
   }

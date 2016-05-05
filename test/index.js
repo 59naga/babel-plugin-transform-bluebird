@@ -1,5 +1,5 @@
 // dependencies
-import assert from 'power-assert';
+import assert from 'assert';
 import { transform } from 'babel-core';
 import specs from './specs';
 import vm from 'vm';
