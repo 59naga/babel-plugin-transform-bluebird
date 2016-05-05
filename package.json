@@ -18,7 +18,8 @@
     "cover:test": "nyc --reporter=lcov --reporter=text abby mocha",
     "cover:report": "npm-if TRAVIS \"codeclimate-test-reporter < coverage/lcov.info\"",
     "lint": "eslint src test",
-    "build": "abby \"babel -V && babel src --out-dir lib --source-maps\" --env"
+    "build": "abby \"babel -V && babel src --out-dir lib --source-maps\" --env",
+    "postversion": "git push --follow-tags && conventional-github-releaser -p angular -r 0"
   },
   "nyc": {
     "exclude": [
@@ -54,6 +55,7 @@
     "bluebird": "^3.3.5",
     "chokidar": "^1.4.3",
     "codeclimate-test-reporter": "^0.3.1",
+    "conventional-github-releaser": "^1.1.2",
     "eslint": "^2.6.0",
     "eslint-config-airbnb": "^7.0.0",
     "mocha": "^2.4.5",
