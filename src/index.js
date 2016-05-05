@@ -11,7 +11,7 @@ const methods = [
 * @module babel-plugin-transform-bluebird
 * @returns {babelPlugin} unknown
 */
-export default () => ({
+export default {
   visitor: {
     Program: {
       enter(path, file) {
@@ -60,4 +60,4 @@ export default () => ({
       });
     },
   },
-});
+};
