@@ -7,10 +7,6 @@ const methods = [
   'race',
 ];
 
-/**
-* @module babel-plugin-transform-bluebird
-* @returns {babelPlugin} unknown
-*/
 export default {
   visitor: {
     Program: {
