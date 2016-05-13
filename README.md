@@ -39,16 +39,9 @@ Promise.resolve().then(() => new Promise((resolve) => resolve()))
 **Out**
 
 ```js
-"use strict";
-var _bluebird = require("bluebird");
-var _bluebird2 = _interopRequireDefault(_bluebird);
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-(0, _bluebird.resolve)().then(function () {
-      return new _bluebird2.default(function (resolve) {
-            return resolve();
-      });
-});
+import _default from "bluebird";
+import { resolve as _resolve } from "bluebird";
+_resolve().then(() => new _default(resolve => resolve()));
 ```
 
 ## Usage
