@@ -5,7 +5,7 @@ import specs from './specs';
 import vm from 'vm';
 
 // target
-import plugin from '../lib';
+import plugin from '../src';
 
 // environment
 const options = {

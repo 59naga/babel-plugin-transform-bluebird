@@ -7,29 +7,20 @@
     "lib"
   ],
   "scripts": {
-    "start": "abby compile, watch:*",
-    "watch:raw": "abby mocha --log --watch",
-    "watch:src": "babel src --out-dir lib --watch",
-    "watch:test": "babel test --out-dir spec --watch",
-    "compile": "babel -V && babel src --out-dir lib && babel test --out-dir spec",
-    "test": "abby compile, mocha",
-    "mocha": "mocha 'spec/**/*.js'",
-    "cover": "abby cover:* --parse serial",
-    "cover:test": "nyc --reporter=lcov --reporter=text abby mocha",
+    "start": "mocha --require babel-register --watch",
+    "test": "mocha --require babel-register",
+    "cover": "abby cover:*",
+    "cover:test": "nyc --reporter=lcov --reporter=text npm test",
     "cover:report": "npm-if TRAVIS \"codeclimate-test-reporter < coverage/lcov.info\"",
     "lint": "eslint src test",
     "build": "abby \"babel -V && babel src --out-dir lib --source-maps\" --env",
     "postversion": "git push --follow-tags && conventional-github-releaser -p angular -r 0"
   },
-  "nyc": {
-    "exclude": [
-      "spec"
-    ]
-  },
   "abigail": {
     "plugins": {
       "log": false,
       "parse": {
+        "serial": true,
         "raw": true
       },
       "watch": {
