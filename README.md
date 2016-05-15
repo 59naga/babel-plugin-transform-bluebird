@@ -56,11 +56,11 @@ And if the `Promise` is already import in file, the file does not transform.
 
 ```js
 // does not transform
-import Promise from 'q';
-Promise.resolve();
+foo instanceof Promise
 
 // does not transform
-foo instanceof Promise
+import Promise from 'q';
+Promise.resolve();
 ```
 
 ## Usage
