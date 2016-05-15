@@ -40,7 +40,7 @@ export default (babel) => {
         }
 
         if (path.get('callee').node.name === defineName) {
-          path.node.callee = file.addImport('bluebird', 'default');
+          path.node.callee = file.addImport('bluebird', 'default', 'Promise');
         }
       },
 
@@ -52,7 +52,7 @@ export default (babel) => {
 
         methods.forEach((method) => {
           if (path.get('callee').matchesPattern(`${defineName}.${method}`)) {
-            const bluebird = file.addImport('bluebird', 'default');
+            const bluebird = file.addImport('bluebird', 'default', 'Promise');
             const {
               memberExpression,
               identifier,

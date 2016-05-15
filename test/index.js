@@ -33,6 +33,7 @@ describe('babel-plugin-transform-bluebird', () => {
     it(test.description, () => {
       const result = transform(test.code, options);
       const returnValue = vm.runInNewContext(result.code, vmGlobal);
+      console.log(result.code);
       assert(returnValue instanceof test.expected);
     });
   });
