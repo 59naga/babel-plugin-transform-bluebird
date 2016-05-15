@@ -39,9 +39,28 @@ Promise.resolve().then(() => new Promise((resolve) => resolve()))
 **Out**
 
 ```js
-import _default from "bluebird";
-import { resolve as _resolve } from "bluebird";
-_resolve().then(() => new _default(resolve => resolve()));
+import _Promise from "bluebird";
+_Promise.resolve().then(() => new _Promise(resolve => resolve()));
+```
+
+## Support syntax
+
+- `new Promise`
+- `Promise.resolve`
+- `Promise.reject`
+- `Promise.all`
+- `Promise.race`
+
+But, syntax `instanceof Promise` doesn't transform.
+And if the `Promise` is already import in file, the file does not transform.
+
+```js
+// does not transform
+import Promise from 'q';
+Promise.resolve();
+
+// does not transform
+foo instanceof Promise
 ```
 
 ## Usage
