@@ -32,13 +32,6 @@ export default [
     expected: Bluebird,
   },
   {
-    description: 'should be injected if called built-in `Promise`',
-    code: `
-      new Promise((resolve)=> resolve())
-    `,
-    expected: Bluebird,
-  },
-  {
     description: 'should be injected if assigned built-in `Promise.resolve` in iife',
     code: `
       (() => {
@@ -73,14 +66,6 @@ export default [
     expected: Bluebird,
   },
   {
-    description: 'should be injected if assigned built-in `Promise`',
-    code: `
-      var foo = new Promise((resolve)=> resolve())
-      foo
-    `,
-    expected: Bluebird,
-  },
-  {
     description: 'should not be injected if `Promise` already imported',
     code: `
       import Promise from 'q'
@@ -101,14 +86,6 @@ export default [
     code: `
       var Promise = require('q')
       Promise.resolve()
-    `,
-    expected: Q,
-  },
-  {
-    description: 'should not be injected if `Promise` already defined using new expression',
-    code: `
-      var Promise = require('q')
-      new Promise((resolve)=> resolve())
     `,
     expected: Q,
   },

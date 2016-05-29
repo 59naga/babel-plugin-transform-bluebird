@@ -1,7 +1,9 @@
 // dependencies
 import assert from 'assert';
 import { transform } from 'babel-core';
-import specs from './specs';
+import NewExpression from './NewExpression';
+import CallExpression from './CallExpression';
+import Identifier from './Identifier';
 import vm from 'vm';
 
 // target
@@ -20,6 +22,7 @@ const options = {
 };
 const vmGlobal = {
   require: (name) => require(name),
+  Promise, // fix "returnValue === Promise" always false
 };
 
 // specs
@@ -29,12 +32,33 @@ describe('babel-plugin-transform-bluebird', () => {
     assert(result.code === '"use strict";');
   });
 
-  specs.forEach((test) => {
-    it(test.description, () => {
-      const result = transform(test.code, options);
-      const returnValue = vm.runInNewContext(result.code, vmGlobal);
-      console.log(result.code);
-      assert(returnValue instanceof test.expected);
+  describe('NewExpression', () => {
+    NewExpression.forEach((test) => {
+      it(test.description, () => {
+        const result = transform(test.code, options);
+        const returnValue = vm.runInNewContext(result.code, vmGlobal);
+        assert(returnValue instanceof test.expected);
+      });
+    });
+  });
+
+  describe('CallExpression', () => {
+    CallExpression.forEach((test) => {
+      it(test.description, () => {
+        const result = transform(test.code, options);
+        const returnValue = vm.runInNewContext(result.code, vmGlobal);
+        assert(returnValue instanceof test.expected);
+      });
+    });
+  });
+
+  describe('Identifier', () => {
+    Identifier.forEach((test) => {
+      it(test.description, () => {
+        const result = transform(test.code, options);
+        const returnValue = vm.runInNewContext(result.code, vmGlobal);
+        assert(returnValue === test.expected);
+      });
     });
   });
 });

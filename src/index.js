@@ -61,6 +61,20 @@ export default (babel) => {
           }
         });
       },
+
+      // found "function(Promise)" / "function(Promise.methods)"
+      Identifier(path, file) {
+        if (file.__UNUSE_BLUEBIRD__) {
+          return;
+        }
+
+        if (path.node.name === defineName) {
+          if (path.parentPath.isBinaryExpression()) {
+            return;
+          }
+          path.replaceWith(file.addImport('bluebird', 'default', 'Promise'));
+        }
+      },
     },
   });
 };
