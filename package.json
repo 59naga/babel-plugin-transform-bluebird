@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-transform-bluebird",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "replace `Promise` with bluebird plugin",
   "main": "lib",
   "files": [
