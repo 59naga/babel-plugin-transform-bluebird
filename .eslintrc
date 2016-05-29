@@ -15,3 +15,5 @@ rules:
   max-len: 1
   arrow-body-style: 1
   no-param-reassign: 0
+  no-underscore-dangle: 1
+  global-require: 1
