@@ -50,7 +50,7 @@ _Promise.resolve().then(() => new _Promise(resolve => resolve()));
 - `Promise.reject`
 - `Promise.all`
 - `Promise.race`
-- `doStaff(Promise)`
+- `doStuff(Promise)`
 
 But, syntax `instanceof Promise` / `any === Promise` doesn't transform.
 And if the `Promise` is already import in file, the file does not transform.
