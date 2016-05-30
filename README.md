@@ -43,29 +43,26 @@ import _Promise from "bluebird";
 _Promise.resolve().then(() => new _Promise(resolve => resolve()));
 ```
 
-## Support syntax
+## Support expression
 
-- `new Promise`
-- `Promise.resolve`
-- `Promise.reject`
-- `Promise.all`
-- `Promise.race`
-- `doStuff(Promise)`
+- `NewExpression` (e.g. `new Promise` -> `new Bluebird`)
+- `MemberExpression` only [built-in Promise  methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise#Methods) (e.g. `Promise.resolve` -> `Bluebird.resolve`)
+- `Identifier` only `Promise` (e.g. `fn(Promise) -> fn(Bluebird)`)
 
-But, syntax `instanceof Promise` / `any === Promise` doesn't transform.
-And if the `Promise` is already import in file, the file does not transform.
+But, if the `Promise` is already import in file, the file does not transform.
 
 ```js
-// does not transform
-foo instanceof Promise
-
-// does not transform
-foo === Promise
-
 // does not transform
 import Promise from 'q';
 Promise.resolve();
 ```
+
+## Unsupport expression
+
+- `BinaryExpression` (e.g. `instanceof Promise`, `if(foo === Promise)`)
+- `MemberExpression` non built-in `Promise` methods (e.g. `Promise.settle`)
+
+the purpose of this plugin is to only transform a built-in `Promise` to the `Bluebird`.
 
 ## Usage
 
