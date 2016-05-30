@@ -50,8 +50,8 @@ export default (babel) => {
           return;
         }
 
-        if (path.node.name === defineName) {
-          if (path.parentPath.isCallExpression()) {
+        if (path.parentPath.isCallExpression()) {
+          if (path.node.name === defineName) {
             path.replaceWith(file.addImport('bluebird', 'default', 'Promise'));
           }
         }
