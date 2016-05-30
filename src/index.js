@@ -12,13 +12,13 @@ export default (babel) => {
     visitor: {
       Program: {
         enter(path, file) {
-          file.__UNUSE_BLUEBIRD__ = false;
+          file.UNUSE_BLUEBIRD = false;
           for (const node of path.node.body) {
             // found "import Promise"
             const specifiers = node.specifiers || [];
             const localNames = specifiers.map((specifier) => specifier.local.name);
             if (localNames.indexOf(defineName) > -1) {
-              file.__UNUSE_BLUEBIRD__ = true;
+              file.UNUSE_BLUEBIRD = true;
               return;
             }
 
@@ -26,7 +26,7 @@ export default (babel) => {
             const declarations = node.declarations || [];
             const declarationIds = declarations.map((declaration) => declaration.id.name);
             if (declarationIds.indexOf(defineName) > -1) {
-              file.__UNUSE_BLUEBIRD__ = true;
+              file.UNUSE_BLUEBIRD = true;
               return;
             }
           }
@@ -35,7 +35,7 @@ export default (babel) => {
 
       // found "new Promise"
       NewExpression(path, file) {
-        if (file.__UNUSE_BLUEBIRD__) {
+        if (file.UNUSE_BLUEBIRD) {
           return;
         }
 
@@ -46,7 +46,7 @@ export default (babel) => {
 
       // found "fn(Promise)"
       Identifier(path, file) {
-        if (file.__UNUSE_BLUEBIRD__) {
+        if (file.UNUSE_BLUEBIRD) {
           return;
         }
 
@@ -59,7 +59,7 @@ export default (babel) => {
 
       // found "Promise.methods"
       MemberExpression(path, file) {
-        if (file.__UNUSE_BLUEBIRD__) {
+        if (file.UNUSE_BLUEBIRD) {
           return;
         }
 
