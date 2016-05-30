@@ -2,7 +2,7 @@
 import assert from 'assert';
 import { transform } from 'babel-core';
 import NewExpression from './NewExpression';
-import CallExpression from './CallExpression';
+import MemberExpression from './MemberExpression';
 import Identifier from './Identifier';
 import vm from 'vm';
 
@@ -42,8 +42,8 @@ describe('babel-plugin-transform-bluebird', () => {
     });
   });
 
-  describe('CallExpression', () => {
-    CallExpression.forEach((test) => {
+  describe('MemberExpression', () => {
+    MemberExpression.forEach((test) => {
       it(test.description, () => {
         const result = transform(test.code, options);
         const returnValue = vm.runInNewContext(result.code, vmGlobal);

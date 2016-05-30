@@ -44,36 +44,35 @@ export default (babel) => {
         }
       },
 
-      // found "Promise.methods()"
-      CallExpression(path, file) {
-        if (file.__UNUSE_BLUEBIRD__) {
-          return;
-        }
-
-        methods.forEach((method) => {
-          if (path.get('callee').matchesPattern(`${defineName}.${method}`)) {
-            const bluebird = file.addImport('bluebird', 'default', 'Promise');
-            const {
-              memberExpression,
-              identifier,
-            } = babel.types;
-            path.node.callee = memberExpression(bluebird, identifier(method));
-          }
-        });
-      },
-
-      // found "function(Promise)" / "function(Promise.methods)"
+      // found "fn(Promise)"
       Identifier(path, file) {
         if (file.__UNUSE_BLUEBIRD__) {
           return;
         }
 
         if (path.node.name === defineName) {
-          if (path.parentPath.isBinaryExpression()) {
-            return;
+          if (path.parentPath.isCallExpression()) {
+            path.replaceWith(file.addImport('bluebird', 'default', 'Promise'));
           }
-          path.replaceWith(file.addImport('bluebird', 'default', 'Promise'));
         }
+      },
+
+      // found "Promise.methods"
+      MemberExpression(path, file) {
+        if (file.__UNUSE_BLUEBIRD__) {
+          return;
+        }
+
+        methods.forEach((method) => {
+          if (path.matchesPattern(`${defineName}.${method}`)) {
+            const bluebird = file.addImport('bluebird', 'default', 'Promise');
+            const {
+              memberExpression,
+              identifier,
+            } = babel.types;
+            path.replaceWith(memberExpression(bluebird, identifier(method)));
+          }
+        });
       },
     },
   });

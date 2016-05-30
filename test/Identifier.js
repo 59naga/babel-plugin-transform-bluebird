@@ -43,6 +43,11 @@ export default [
     expected: Bluebird.race,
   },
   {
+    description: 'should not be injected `Promise.settle` non built-in method',
+    code: 'Promise.settle',
+    expected: Promise.settle,
+  },
+  {
     description: 'should not be injected in binaryExpression(instanceof)',
     code: `
       Promise.resolve() instanceof Promise
